@@ -6,8 +6,6 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import tkinter.simpledialog as tksd
-import matplotlib.patches as mpatches
-from matplotlib.offsetbox import AnnotationBbox, OffsetImage
 # ------------------ matplotlib 中文 ------------------
 plt.rcParams['font.sans-serif'] = ['SimHei']      # Windows 黑体
 plt.rcParams['axes.unicode_minus'] = False
@@ -393,12 +391,15 @@ def plot_top10_transfer_on_map(top10_names, df):
                 transform=ccrs.PlateCarree(), fontsize=11, fontweight='bold')
     plt.show()
 # ------------------ 6. 启动 ------------------
+
 if __name__ == "__main__":
-    excel_file = "机场信息调查.xlsx"
-    if not os.path.exists(excel_file):
-        messagebox.showerror("文件不存在", f"请将 Excel 文件命名为 {excel_file} 并放在脚本同目录")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    excel_path = os.path.join(BASE_DIR, "机场信息调查.xlsx")
+
+    if not os.path.exists(excel_path):
+        messagebox.showerror("文件不存在", f"请将 Excel 文件命名为 机场信息调查.xlsx 并放在脚本同目录")
     else:
-        df = read_airports(excel_file)
+        df = read_airports(excel_path)
         root = tk.Tk()
         app = AirportApp(root, df)
         root.mainloop()
